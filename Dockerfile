@@ -15,11 +15,6 @@ RUN pip3 install --upgrade pip \
 # Cria um usuário não-root para segurança
 RUN useradd -ms /bin/bash jupyter-user
 
-# Define o token fixo (substitua 'seu_token_secreto' por um valor seguro)
-ENV JUPYTER_TOKEN=9dsf87AJSdkj12398DDslkjSDF98
-ENV PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
 # Define o diretório de trabalho
 WORKDIR /workspace
 
@@ -29,5 +24,5 @@ USER jupyter-user
 # Expõe a porta do JupyterLab
 EXPOSE 8888
 
-# Inicia o JupyterLab com o token fixo
+# (Token será definido no docker-compose)
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
