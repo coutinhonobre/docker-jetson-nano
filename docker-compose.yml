@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jetson-jupyter-lab
+    container_name: jetson-jupyter-container
+    volumes:
+      - ./notebooks:/workspace/notebooks  # Mount your local notebooks directory
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+    ports:
+      - 8888:8888
+    runtime: nvidia
+    environment:
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+      - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
+      - JUPYTER_NOTEBOOK_DIR=/home/jovyan/work
+      - NB_UID=1000
+      - NB_GID=100
+      - GRANT_SUDO=yes
+      - NVIDIA_VISIBLE_DEVICES=all  # Make all GPUs visible to the container
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # Set GPU capabilities
+    user: root
