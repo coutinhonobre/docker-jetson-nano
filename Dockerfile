@@ -1,5 +1,5 @@
 # Imagem base otimizada para Jetson (L4T) com CUDA e cuDNN
-FROM nvcr.io/nvidia/l4t-ml:r35.3.1-py3
+FROM nvcr.io/nvidia/l4t-ml:r35.3.1-tf2.11-py3
 
 # Atualiza lista de pacotes e instala as dependências
 RUN apt-get update && apt-get install -y --no-install-recommends \
